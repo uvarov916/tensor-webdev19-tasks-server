@@ -12,10 +12,20 @@ if (process.env.NODE && ~process.env.NODE.indexOf("heroku")) {
     allowedOrigin = 'https://tensor-webdev19-tasks-client.herokuapp.com';
 }
 
-app.use(cors({origin: allowedOrigin, credentials: true}))
+app.use(cors({ origin: allowedOrigin, credentials: true }))
 
 // For cookies to work on heroku
-app.set('trust proxy', 1);
+app.enable('trust proxy');
+
+app.use(express.session({
+    secret: 'SecretPhrase',
+    key: 'sid',
+    proxy: true, // add this when behind a reverse proxy, if you need secure cookies
+    cookie: {
+        secure: true,
+        maxAge: 5184000000 // 2 months
+    }
+}));
 
 // parse application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: true }))
@@ -35,9 +45,9 @@ mongoose.Promise = global.Promise;
 
 // Connecting to the database
 mongoose.connect(dbConfig.url, {
-	useNewUrlParser: true
+    useNewUrlParser: true
 }).then(() => {
-    console.log("Successfully connected to the database");    
+    console.log("Successfully connected to the database");
 }).catch(err => {
     console.log('Could not connect to the database. Exiting now...', err);
     process.exit();
@@ -45,7 +55,7 @@ mongoose.connect(dbConfig.url, {
 
 // define a simple route
 app.get('/', (req, res) => {
-    res.json({"message": "Welcome to Tasks application."});
+    res.json({ "message": "Welcome to Tasks application." });
 });
 
 require('./app/routes/task.routes.js')(app);
