@@ -14,6 +14,9 @@ if (process.env.NODE && ~process.env.NODE.indexOf("heroku")) {
 
 app.use(cors({origin: allowedOrigin, credentials: true}))
 
+// For cookies to work on heroku
+app.set('trust proxy', 1);
+
 // parse application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: true }))
 
