@@ -43,8 +43,9 @@ app.get('/', (req, res) => {
 require('./app/routes/task.routes.js')(app);
 require('./app/routes/user.routes.js')(app);
 
+const port = process.env.PORT || 5757;
 
 // listen for requests
-app.listen(5757, () => {
-    console.log("App is running on port 5757");
+app.listen(port, () => {
+    console.log(`App is running on port ${port}`);
 });
