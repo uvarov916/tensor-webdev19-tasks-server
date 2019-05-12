@@ -9,7 +9,7 @@ const app = express();
 
 let allowedOrigin = 'http://localhost:3000';
 if (process.env.NODE && ~process.env.NODE.indexOf("heroku")) {
-    allowedOrigin = 'https://tensor-webdev19-tasks-client.herokuapp.com/';
+    allowedOrigin = 'https://tensor-webdev19-tasks-client.herokuapp.com';
 }
 
 app.use(cors({origin: allowedOrigin, credentials: true}))
