@@ -70,7 +70,7 @@ exports.login = (req, res) => {
                 } else if (result) {
                     SessionController.create(username)
                         .then(createdSessionId => {
-                            res.cookie('sid', createdSessionId);
+                            res.cookie('sid', createdSessionId, {signed: true, secure: true});
                             res.send(createdSessionId);
                         })
                         .catch(err => {
