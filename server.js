@@ -17,16 +17,6 @@ app.use(cors({ origin: allowedOrigin, credentials: true }))
 // For cookies to work on heroku
 app.enable('trust proxy');
 
-app.use(express.session({
-    secret: 'SecretPhrase',
-    key: 'sid',
-    proxy: true, // add this when behind a reverse proxy, if you need secure cookies
-    cookie: {
-        secure: true,
-        maxAge: 5184000000 // 2 months
-    }
-}));
-
 // parse application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: true }))
 
