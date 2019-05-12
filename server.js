@@ -7,7 +7,12 @@ const user = require('./app/controllers/user.controller.js');
 // create express app
 const app = express();
 
-app.use(cors({origin: 'http://localhost:3000,https://tensor-webdev19-tasks-client.herokuapp.com/', credentials: true}))
+let allowedOrigin = 'http://localhost:3000';
+if (process.env.NODE && ~process.env.NODE.indexOf("heroku")) {
+    allowedOrigin = 'https://tensor-webdev19-tasks-client.herokuapp.com/';
+}
+
+app.use(cors({origin: allowedOrigin, credentials: true}))
 
 // parse application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: true }))
