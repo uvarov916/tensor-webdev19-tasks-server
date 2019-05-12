@@ -23,7 +23,7 @@ app.use(bodyParser.urlencoded({ extended: true }))
 // parse application/json
 app.use(bodyParser.json())
 
-app.use(cookieParser());
+app.use(cookieParser('secrectcode'));
 
 app.use(user.authMiddleware);
 
