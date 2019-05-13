@@ -45,6 +45,7 @@ mongoose.connect(dbConfig.url, {
 
 // define a simple route
 app.get('/', (req, res) => {
+    res.cookie('test', 'testval');
     res.json({ "message": "Welcome to Tasks application." });
 });
 
